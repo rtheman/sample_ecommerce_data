@@ -11,7 +11,9 @@ with Init_Purchase as (
     CustomerID
     , min(InvoiceDate) as Init_Purchase_Date
   from `landingzone.ecommerce_data` 
-  where (CustomerID is not null)
+  where 
+    (CustomerID is not null)
+    and (Quantity >= 0)
   group by 1
 )
 
