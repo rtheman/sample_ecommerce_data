@@ -13,3 +13,11 @@ models:
         description: The very first date of purchase in record.
         tests:
           - not_null
+
+  - name: transactions
+    description: Transactions with customer's inital purchase date, and total price.
+    columns:
+      - name: InvoiceNo
+        description: Primary key.
+        tests:
+          - not_null
