@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: initial_purchase
+    description: Identify initial purchase date of each customer. This can often be assumed as "sign up" date.
+    columns:
+      - name: CustomerID
+        description: Primary key. Unique ID of each customer.
+        tests:
+          - unique
+          - not_null
+      - name: Init_Purchase_Date
+        description: The very first date of purchase in record.
+        tests:
+          - not_null
