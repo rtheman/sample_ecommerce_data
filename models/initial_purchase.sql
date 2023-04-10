@@ -1,11 +1,3 @@
--- override dbt_project.yml and persist result as table
-{{
-    config(
-        materialized='view'
-    )
-}}
-
-
 with Init_Purchase as (
   select 
     CustomerID
