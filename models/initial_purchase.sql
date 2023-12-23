@@ -1,11 +1,12 @@
 with Init_Purchase as (
-  select 
-    CustomerID
-    , min(InvoiceDate) as Init_Purchase_Date
-  from `landingzone.ecommerce_data` 
-  where 
-    (CustomerID is not null)
-    and (Quantity >= 0)         -- avoid returns transactions (negative Quantity value)
+    select 
+        -- CustomerID
+        CAST(CustomerID AS STRING) AS CustomerID
+        , min(InvoiceDate) as Init_Purchase_Date
+    from `transformed_rtheman.ecommerce_data`
+    where 
+        (CustomerID is not null)    -- ensure legit transactions
+        and (Quantity >= 0)         -- avoid returns transactions (negative Quantity value)
   group by 1
 )
 

@@ -4,19 +4,20 @@
   )
 }}
 
-select 
-    OG.CustomerID
-    , ip.Init_Purchase_Date
-    , ip.Init_Purchase_YrMo
-    , OG.InvoiceDate as order_date
-    , date_diff(date(OG.InvoiceDate), date(ip.Init_Purchase_Date), MONTH) as Period
-    , OG.InvoiceNo
-    , OG.Quantity as order_quantity
-    , OG.UnitPrice
-    , OG.Quantity * OG.UnitPrice as order_spend
-from `landingzone.ecommerce_data` as OG
--- left join `dbtPROD___sample_eCommerce_data.initial_purchase` as ip
+select
+    -- OG.CustomerID,
+    CAST(OG.CustomerID AS STRING) AS CustomerID, 
+    ip.Init_Purchase_Date,
+    ip.Init_Purchase_YrMo,
+    OG.InvoiceDate as Order_Date,
+    OG.InvoiceNo,
+    OG.Quantity as Order_Quantity,
+    OG.UnitPrice,
+    date_diff(date(OG.InvoiceDate), date(ip.Init_Purchase_Date), month)
+        as Period,
+    OG.Quantity * OG.UnitPrice as Order_Spend
+from `transformed_rtheman.ecommerce_data` as OG
 left join {{ ref('initial_purchase') }} as ip
-    on OG.CustomerID = ip.CustomerID
+    on CAST(OG.CustomerID AS STRING) = ip.CustomerID
 where
     (OG.CustomerID is not null)
