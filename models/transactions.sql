@@ -15,7 +15,8 @@ select
     , OG.UnitPrice
     , OG.Quantity * OG.UnitPrice as order_spend
 from `landingzone.ecommerce_data` as OG
-left join `dbtPROD___sample_eCommerce_data.initial_purchase` as ip
+-- left join `dbtPROD___sample_eCommerce_data.initial_purchase` as ip
+left join {{ ref('initial_purchase') }} as ip
     on OG.CustomerID = ip.CustomerID
 where
     (OG.CustomerID is not null)
