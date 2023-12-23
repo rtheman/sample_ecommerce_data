@@ -5,7 +5,7 @@ with Init_Purchase as (
   from `landingzone.ecommerce_data` 
   where 
     (CustomerID is not null)
-    and (Quantity >= 0)
+    and (Quantity >= 0)         -- avoid returns transactions (negative Quantity value)
   group by 1
 )
 
